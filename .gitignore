@@ -1,0 +1,9 @@
+package-lock.json
+logs
+*.log
+pids
+node_modules
+.npm
+*.dat
+Procfile
+.DS_Store
