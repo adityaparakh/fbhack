@@ -844,7 +844,7 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 
-function callSendAPI(messageData) {
+function callSendAPI(messageData,response) {
   
   // Construct the message body
   let request_body = {
