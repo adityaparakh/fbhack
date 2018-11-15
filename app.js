@@ -92,8 +92,8 @@ app.post('/webhook', function (req, res) {
       var pageID = pageEntry.id;
       var timeOfEvent = pageEntry.time;
        // Gets the body of the webhook event
-  let webhook_event = entry.messaging[0];
-  console.log(webhook_event);
+      let webhook_event = pageEntry.messaging[0];
+      console.log(webhook_event);
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
