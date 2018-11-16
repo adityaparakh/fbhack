@@ -875,7 +875,7 @@ function handleMessage(sender_psid, received_message) {
       if (greeting && greeting.confidence > 0.8) {
         response = handleGreeting(sender_psid,greeting);
       } else if(datetime && datetime.confidence > 0.8) { 
-        response = handleDatetime(sender_psid,datetime);
+        response = handleDatetime(sender_psid,datetime,messageText);
 
       } else if(thanks && thanks.confidence > 0.8){
         response = { "text": 'You are welcome' };
@@ -890,8 +890,8 @@ function handleMessage(sender_psid, received_message) {
 
   }
   else{
-    var location = locs[getRandomInt(0,locs.length)];
-    response ={'text':'You are located in'+location+' Thank you for updating your location'};
+    var location = locs[0];
+    response ={'text':'You are located in '+location+' Thank you for updating your location'};
     //adi update location here
   }     
   
@@ -908,11 +908,11 @@ function handleGreeting(sender_psid,greeting) {
   return {'text':'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
 }
 
-function handleDatetime(sender_psid,datetime) {
+function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
   //get facebook name frequency and location and interests
-  var response = {
+  /*var response = {
     "attachment": {
       "type": "template",
       "payload": {
@@ -935,7 +935,15 @@ function handleDatetime(sender_psid,datetime) {
         }]
       }
     }
+  }*/
+  for (i=0;i<=interests.length;i++)
+  {
+    if (messageText.includes(interests[i])){
+      ouri = ineterests[i];
+      break;
+    }
   }
+  response = 'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.';
   return response;
 }
 
