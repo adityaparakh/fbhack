@@ -901,7 +901,7 @@ function handleMessage(sender_psid, received_message) {
 
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
-  let info = getUserInfo(sender_psid);
+  let info = JSON.stringify(getUserInfo(sender_psid));
   console.log(" FUCK ");
   console.log(info);
   console.log(typeof info);
