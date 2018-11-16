@@ -836,10 +836,9 @@ function handleMessage(sender_psid, received_message) {
     const datetime = firstEntity(received_message.nlp, 'datetime');
     const thanks = firstEntity(received_message.nlp, 'thanks');
     if (greeting && greeting.confidence > 0.8) {
-      response = { "text": 'Hi How are you ' };
+      response = handleGreeting(sender_psid,greeting);
     } else if(datetime && datetime.confidence > 0.8) { 
-      // default logic
-      response = { "text": 'Sure what would you like to do on '+datetime.value+'.' };
+      response = handleDatetime(sender_psid,datetime);
 
     } else if(thanks && thanks.confidence > 0.8){
       response = { "text": 'You are welcome' };
@@ -853,6 +852,32 @@ function handleMessage(sender_psid, received_message) {
   callSendAPI(sender_psid, response); 
 }
 
+function handleGreeting(sender_psid,greeting) {
+  //use the greeting you get to decide what type of greeting you will give back
+  info = getUserInfo(sender_psid);
+  return 'Great to see you '+info.first_name+'. If you are ready just send me your avialability and I will see what I can get you scheduled with';
+}
+
+function handleDatetime(sender_psid,datetime) {
+  //use the greeting you get to decide what type of greeting you will give back
+  info = getUserInfo(sender_psid);
+  //get facebook name frequency and location and interests
+  return 'Great to see you '+info.first_name+'. If you are ready just send me your avialability and I will see what I can get you scheduled with';
+}
+function getUserInfo(sender_psid){
+  https.get('https://graph.facebook.com/'+sender_psid, function(req, res) {
+    // A chunk of data has been recieved.
+    res.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    res.on('end', () => {
+      return data;
+    });
+  });
+  return data;
+}
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
 
