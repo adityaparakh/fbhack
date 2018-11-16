@@ -945,7 +945,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
+  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
   return response;
 }
 
