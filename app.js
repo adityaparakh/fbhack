@@ -886,6 +886,7 @@ function handleMessage(sender_psid, received_message) {
             response = {'text':userDetails};
             //callSendAPI(sender_psid,response);
             }, function(err) {
+             console.log("printing err.....")
              console.log(err)
                var replyText = "Howdy, person. I am your {App Name}. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
              var response = {'text':err.first_name};
