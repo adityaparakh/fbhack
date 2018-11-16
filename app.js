@@ -915,7 +915,8 @@ function handleMessage(sender_psid, received_message) {
 
               var n = weekday[day.getDay()];
               console.log(n);
-              var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
+              //var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
+              var response = {'text':'pppp'};
               callSendAPI(sender_psid,{'text':'asdasd'});
 
             
