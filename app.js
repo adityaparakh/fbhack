@@ -102,7 +102,9 @@ app.get('/test', function(req, res) {
     let request = require('request');
     var fat = "";
 
-
+    getUserInfo("hi").then(result => {
+      console.log(result)
+    })
 
     res.status(200).send(fat);
 });
@@ -901,12 +903,11 @@ function handleMessage(sender_psid, received_message) {
 
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
-  let info = JSON.stringify(getUserInfo(sender_psid));
-  console.log(" FUCK ");
-  console.log(info);
-  console.log(typeof info);
-  return {'text':'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
-}
+    return getUserInfo("hi").then(result => {
+      console.log(result)
+        return {'text':'Great to see you '+result+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
+    })
+  }
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
@@ -956,10 +957,9 @@ function getRandomInt(min, max) {
 function getUserInfo(sender_psid){
     var initializePromise = initialize();
     return initializePromise.then(function(result) {
-        let userDetails = JSON.stringify(result);
+        let userDetails = result;
         console.log("Initialized user details");
         // Use user details from here
-
         return JSON.stringify(userDetails['first_name']);
     }, function(err) {
         console.log(err);
