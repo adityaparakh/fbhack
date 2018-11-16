@@ -849,10 +849,11 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
+        console.log('852');
          var initializePromise = getUserInfo();
          initializePromise.then(function(result) {
           userDetails = result;
-          console.log("Initialized user details");
+          console.log("AAasdasdoasiudaosAAAAAAAAAAInitialized user details");
           // Use user details from here
           response = {'text':userDetails};
           callSendAPI(sender_psid,response);
