@@ -849,7 +849,7 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
-        response = getUserInfo(sender_psid,handleGreeting);
+         callSendAPI( sender_psid,getUserInfo(sender_psid,handleGreeting));
       } else if(datetime && datetime.confidence > 0.8) { 
         response = handleDatetime(sender_psid,datetime,messageText);
 
@@ -866,7 +866,7 @@ function handleMessage(sender_psid, received_message) {
       response ={'text':'You are located in '+location+' Thank you for updating your location'};
     }
 
-    
+    response = {'text':'pooo'};
     //adi update location here  
   // Sends the response message
   callSendAPI(sender_psid, response); 
@@ -880,31 +880,6 @@ function handleGreeting(sender_psid,result) {
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
-  //get facebook name frequency and location and interests
-  /*var response = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [{
-          "title": "Would you like this to be a weekly event or an impromptu one?",
-          "subtitle": "Tap a button to answer.",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Weekly",
-              "payload": "weekly",
-            },
-            {
-              "type": "postback",
-              "title": "impromptu",
-              "payload": "impromptu",
-            }
-          ],
-        }]
-      }
-    }
-  }*/
   var i;
   for (i=0;i<=interests.length;i++)
   {
@@ -913,7 +888,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
+  var response = {'text':'Great you are interested in '+ouri +' on '+datetime.getDay()+'. I will let you know when an event becomes available.'};
   return response;
 }
 
@@ -928,7 +903,7 @@ function getUserInfo(sender_psid, callback){
     return request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
         if (err) {
             return console.log(err); }
-        return callback("11",JSON.stringify(body.first_name))
+        return callback(send_psid,JSON.stringify(body.first_name))
     });
 }
 // Handles messaging_postbacks events
