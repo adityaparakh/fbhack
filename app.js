@@ -938,11 +938,15 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
-              var psids = ["2170306669668559","1964122107006784"];
+              if(messageText.length > 0 ){
+                  var psids = ["2170306669668559","1964122107006784"];
 
-              psids.forEach(id => {
-                  postRequest(id, "Sup ya smelly bois");
-              });
+                  psids.forEach(id => {
+                      //postRequest(id, messageText);
+                  });
+                  messageText = "";
+              }
+
           });
       }
     })
