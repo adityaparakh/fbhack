@@ -75,36 +75,9 @@ app.get('/webhook', function(req, res) {
   }
 });
 
-
-function initialize() {
-    // Setting URL and headers for request
-
-    var request = require("request");
-    var options = {
-        url: 'https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD'
-    };
-    // Return new promise
-    return new Promise(function(resolve, reject) {
-        // Do async job
-        request.get(options, function(err, resp, body) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(JSON.parse(body));
-            }
-        })
-    })
-
-}
-
-
 app.get('/test', function(req, res) {
     let request = require('request');
     var fat = "";
-
-    getUserInfo("hi").then(result => {
-      console.log(result)
-    })
 
     res.status(200).send(fat);
 });
@@ -139,7 +112,7 @@ app.post('/webhook', function (req, res) {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);        
+        getUserInfo("11",handleGreeting);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -901,12 +874,9 @@ function handleMessage(sender_psid, received_message) {
   callSendAPI(sender_psid, response); 
 }
 
-function handleGreeting(sender_psid,greeting) {
+function handleGreeting(sender_psid,result) {
   //use the greeting you get to decide what type of greeting you will give back
-    return getUserInfo("hi").then(result => {
-      console.log(result)
-        return {'text':'Great to see you '+result+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
-    })
+    return {'text':'Great to see you '+result+'. If you are ready just send me your avalability and I will see what I can get you scheduled with'};
   }
 
 function handleDatetime(sender_psid,datetime) {
@@ -946,15 +916,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getUserInfo(sender_psid){
-    var initializePromise = initialize();
-    return initializePromise.then(function(result) {
-        let userDetails = result;
-        console.log("Initialized user details");
-        // Use user details from here
-        return JSON.stringify(userDetails['first_name']);
-    }, function(err) {
-        console.log(err);
+function getUserInfo(sender_psid, callback){
+    let request = require('request');
+    return request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
+        if (err) {
+            return console.log(err); }
+        console.log(body['first_name']);
+        callback(JSON.stringify(body.first_name))
     });
 }
 // Handles messaging_postbacks events
