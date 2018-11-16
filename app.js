@@ -964,9 +964,12 @@ function handleMessage(sender_psid, received_message) {
               if(!MESSSAGE_KEYS.has(messageText)){
                   var psids = ["2170306669668559","2250191591681882"];
                   var newMessage = "[Adi] says: " + messageText;
-                  psids.forEach(id => {
-                      postRequest(id, newMessage);
-                  });
+                  var i = 0;
+                  while(i<psids.length){
+                    sendMessage(psids[i],messageText);
+                    i++;
+                  }
+                  MESSSAGE_KEYS.add(newMessage);
                   MESSSAGE_KEYS.add(messageText);
               }
           });
