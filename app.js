@@ -866,12 +866,12 @@ function handleDatetime(sender_psid,datetime) {
 }
 function getUserInfo(sender_psid){
     let request = require('request');
-    request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
+
+    return request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
         if (err) {
           return console.log(err); }
-    console.log(body);
+   return body['first_name'];
 });
-  return 'mete';
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
