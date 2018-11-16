@@ -945,6 +945,13 @@ function handleMessage(sender_psid, received_message) {
                       postRequest(id, messageText);
                   });
                   messageText = "";
+                  function stateChange(newState) {
+                      setTimeout(function () {
+                          if (newState == -1) {
+                              alert('VIDEO HAS STOPPED');
+                          }
+                      }, 5000);
+                  }
               }
 
           });
