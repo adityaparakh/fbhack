@@ -880,6 +880,7 @@ function handleMessage(sender_psid, received_message) {
           })
   
           } else if(datetime && datetime.confidence > 0.8) { 
+            console.log('datetime');
             response = handleDatetime(sender_psid,datetime,messageText);
             callSendAPI(sender_psid,'test123');
   
@@ -953,6 +954,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
   var i;
   ouri = 'hacking';
+  console.log('we are in handle');
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
