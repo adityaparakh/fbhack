@@ -868,7 +868,7 @@ function handleMessage(sender_psid, received_message) {
       }, function(err) {
       var trueval = err;
       console.log('856');
-      console.log(err);
+      console.log(trueval);
       //console.log(err);
       //parse here adi
       var nconv = 0;
