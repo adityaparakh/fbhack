@@ -923,6 +923,7 @@ function getUserInfo(sender_psid){
         if (err) {
             reject(err);
         } else {
+            console.log('926');
             resolve(JSON.parse(body));
         }
       })
