@@ -849,7 +849,7 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
-        response = getUserInfo("11",handleGreeting);
+        response = getUserInfo(sender_psid,handleGreeting);
       } else if(datetime && datetime.confidence > 0.8) { 
         response = handleDatetime(sender_psid,datetime,messageText);
 
@@ -867,9 +867,7 @@ function handleMessage(sender_psid, received_message) {
     }
 
     
-    //adi update location here
-  }     
-  
+    //adi update location here  
   // Sends the response message
   callSendAPI(sender_psid, response); 
 }
