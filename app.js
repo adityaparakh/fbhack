@@ -913,9 +913,6 @@ function handleMessage(sender_psid, received_message) {
           }, function(err) {
               response = {'text':err};
               console.log(err)
-
-              var initializeSomeShit = getLeftOverPeople(sender_psid);
-              console.log(initializeSomeShit);
               initializeSomeShit.then(function(result) {
                   response = {'text':userDetails};
               }, function(err) {
@@ -938,12 +935,12 @@ function handleMessage(sender_psid, received_message) {
                           messageText = "";
                           psids.forEach(id => {
                               //postRequest(id, customString)
-                          })
+                          });
                       }
-                  })
+                  });
 
-              })
-          })
+              });
+          });
       }
     })
     let nconv = 0 ;
