@@ -867,7 +867,7 @@ function handleMessage(sender_psid, received_message) {
         const thanks = firstEntity(received_message.nlp, 'thanks');
         if (greeting && greeting.confidence > 0.8) {
           console.log('852');
-           var initializePromise = getUserInfo();
+           var initializePromise = getUserInfo(sender_psid);
            console.log(initializePromise);
            initializePromise.then(function(result) {
             userDetails = result;
