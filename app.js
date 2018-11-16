@@ -916,7 +916,7 @@ function handleMessage(sender_psid, received_message) {
               console.log(datetime.values[0].value);
               var day = datetime.values[0].value;
               console.log(ouri);
-              console.log(day.getDay());
+              //console.log(day.getDay());
               var weekday = new Array(7);
               weekday[0] =  "Sunday";
               weekday[1] = "Monday";
@@ -926,10 +926,10 @@ function handleMessage(sender_psid, received_message) {
               weekday[5] = "Friday";
               weekday[6] = "Saturday";
 
-              var n = weekday[day.getDay()];
-              console.log(n);
+              //var n = weekday[day.getDay()];
+              //console.log(n);
               //var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
-              var response = {"text":'pppp'};
+              var response = {"text":"fuck me sideways"};
               callSendAPI(sender_psid,response);
 
           } else if(thanks && thanks.confidence > 0.8){
