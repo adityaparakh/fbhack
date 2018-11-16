@@ -853,7 +853,8 @@ function handleMessage(sender_psid, received_message) {
       //callSendAPI(sender_psid,response);
       }, function(err) {
       trueval = err;
-      console.log(err);
+      console.log('856');
+      //console.log(err);
       //parse here adi
       nconv = 0;
       if (nconv){
