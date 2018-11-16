@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (true){
+      if (trueval){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -889,10 +889,10 @@ function handleMessage(sender_psid, received_message) {
              console.log("printing err.....");
              console.log(err);
                console.log(JSON.parse(err));
-               var replyText = "Howdy, Mete!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
+               var replyText = "Howdy, Mete!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started. What do you want to do and when are you available?";
 
                if(sender_psid == "2170306669668559"){
-                   var replyText = "Hey, Hamza!. Welcome toConnectify. Lets get your activities started, when are you available?";
+                   var replyText = "Hey, Muhammad!. Welcome toConnectify. Lets get your activities started, when are you available and what would you like to do?";
 
                }
 
@@ -950,7 +950,7 @@ function handleMessage(sender_psid, received_message) {
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
             if(sender_psid == "2170306669668559"){
-               response = "No problem Hamza!";
+               response = "No problem Muhammad!";
 
           }
             callSendAPI(sender_psid,response);
@@ -977,7 +977,7 @@ function handleMessage(sender_psid, received_message) {
                   var userName = "";
 
                   if(sender_psid == "2170306669668559"){
-                    userName = "Hamza";
+                    userName = "Muhammad";
                   }
                   if(sender_psid == "1964122107006784"){
                     userName = "Mete";
