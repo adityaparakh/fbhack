@@ -904,32 +904,45 @@ function handleMessage(sender_psid, received_message) {
               //response = handleDatetime(sender_psid,datetime,messageText);
             console.log("Date time.............");
             console.log(messageText);
-              var i;
-              var ouri = "hacking";
-              for (i=0;i<=interests.length;i++)
-              {
-                if (messageText.includes(interests[i])){
-                   ouri = interests[i];
-                  break;
-                }
+            var i;
+            var ouri = "hacking";
+            for (i=0;i<=interests.length;i++)
+            {
+              if (messageText.includes(interests[i])){
+                 ouri = interests[i];
+                break;
               }
-              console.log(datetime.values[0].value);
-              var day = datetime.values[0].value;
-              console.log(ouri);
-              //console.log(day.getDay());
+            }
+
               var weekday = new Array(7);
-              weekday[0] =  "Sunday";
+              weekday[0] = "Sunday";
               weekday[1] = "Monday";
               weekday[2] = "Tuesday";
               weekday[3] = "Wednesday";
               weekday[4] = "Thursday";
               weekday[5] = "Friday";
               weekday[6] = "Saturday";
+              weekday[7] = "sunday";
+              weekday[8] = "monday";
+              weekday[9] = "tuesday";
+              weekday[10] = "wednesday";
+              weekday[11] = "thursday";
+              weekday[12] = "friday";
+              weekday[13] = "saturday";
 
-              //var n = weekday[day.getDay()];
-              //console.log(n);
-              //var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
-              var response = {"text":"Got it! I'm saving your details. I'll crunch some algorithms and hit you back when I find a good match!"};
+
+
+              var day;
+              for (i=0;i<=weekday.length;i++){
+                if (messageText.includes(weekday[i])){
+                  var day = weekday[i];
+                  break;
+                }
+              } 
+
+
+              var response = {"text":"Got it "+ouri+" on "+day+". I'll crunch some algorithms and hit you back when I find a good match!"};
+              console.log(response);
               callSendAPI(sender_psid,response);
 
           } else if(thanks && thanks.confidence > 0.8){
@@ -1059,7 +1072,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
   console.log(ouri);
   console.log(day.getDay());
   var weekday = new Array(7);
-  weekday[0] =  "Sunday";
+  weekday[0] = "Sunday";
   weekday[1] = "Monday";
   weekday[2] = "Tuesday";
   weekday[3] = "Wednesday";
