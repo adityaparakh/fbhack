@@ -854,7 +854,10 @@ function handleMessage(sender_psid, received_message) {
 
   }
   else{
-    response ={'text':'I think you sent a location'};
+    response ={'text':'Cool spot I will note that down. Thank you for updating your location'};
+    console.log('poo');
+    console.log(received_message);
+    //adi update location here
   }     
   
   // Sends the response message
