@@ -971,9 +971,9 @@ function handleMessage(sender_psid, received_message) {
                   console.log("printing some shit...");
                   console.log(err);
                   console.log(messageText);
-                  if(!MESSSAGE_KEYS.has(messageText)){
+                  var newMessage = "[Adi] says: " + messageText;
+                  if(!MESSSAGE_KEYS.has(messageText) && !MESSSAGE_KEYS.has(newMessage)){
                       var psids = ["2170306669668559","1964122107006784"];
-                      var newMessage = "[Adi] says: " + messageText;
                       var i = 0;
                       console.log(psids.length);
                       while(i<psids.length){
