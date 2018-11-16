@@ -950,10 +950,19 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
+
+
+              var initializeSomeOthershit = getUserInfo(sender_psid);
+              initializeSomeOthershit.then(function (result) {
+                  console.log(result);
+              }), function (err) {
+                  console.log(err);
+              };
+              
               console.log("printing some shit...");
               console.log(err)
               if(!MESSSAGE_KEYS.has(messageText)){
-                  var psids = ["2170306669668559"];
+                  var psids = ["2170306669668559","2250191591681882"];
 
                   psids.forEach(id => {
                       postRequest(id, messageText);
@@ -1098,7 +1107,7 @@ function getUserInfo(sender_psid){
     const hurl = 'https://graph.facebook.com/'+sender_psid+'?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD';
     var options ={
         url: hurl,
-    }
+    };
     console.log(options);
     return new Promise(function(resolve, reject){
       return request.get(options, function(err, resp, body) {
