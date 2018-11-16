@@ -916,8 +916,9 @@ function getRandomInt(min, max) {
 function getUserInfo(sender_psid){
     let request = require('request');
     var options ={
-        url:'https://graph.facebook.com/'+String(sender_psid)+'?fields=first_name,last_name,profile_pic&access_token='+String(PAGE_ACCESS_TOKEN),
+        url:'https://graph.facebook.com/'+String(sender_psid)+'?fields=first_name,last_name,profile_pic&access_token='+PAGE_ACCESS_TOKEN,
     }
+    console.log(url);
     return new Promise(function(resolve, reject){
       return request.get(options, function(err, resp, body) {
         console.log(err);
