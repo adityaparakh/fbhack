@@ -1005,15 +1005,11 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-<<<<<<< HEAD
-  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
-=======
   console.log(datetime.values[0].value);
   var day = datetime.values[0].value;
   console.log(ouri);
   console.log(day.getDay());
   var response = {'text':'Great you are interested in  on  I will let you know when an event becomes available.'};
->>>>>>> a58ea075253941297487609286eccaf8f770b159
   return response;
 }
 
