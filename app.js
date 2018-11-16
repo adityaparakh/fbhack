@@ -856,7 +856,7 @@ function handleMessage(sender_psid, received_message) {
           console.log("AAasdasdoasiudaosAAAAAAAAAAInitialized user details");
           // Use user details from here
           response = {'text':userDetails};
-          callSendAPI(sender_psid,response);
+          //callSendAPI(sender_psid,response);
           }, function(err) {
           console.log('861 error');
         })
@@ -916,6 +916,10 @@ function getUserInfo(sender_psid){
     }
     return new Promise(function(resolve, reject){
       request.get(options, function(err, resp, body) {
+        console.log(err);
+        console.log(resp);
+        console.log(body);
+        console.log('922')
         if (err) {
             reject(err);
         } else {
