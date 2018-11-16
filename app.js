@@ -862,7 +862,7 @@ function handleMessage(sender_psid, received_message) {
           //callSendAPI(sender_psid,response);
           }, function(err) {
            name = {'text':err.first_name};
-           callSendAPI(sender_psid,response);;
+           callSendAPI(sender_psid,name);
         })
 
       } else if(datetime && datetime.confidence > 0.8) { 
