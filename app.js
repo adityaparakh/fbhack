@@ -851,6 +851,8 @@ function handleMessage(sender_psid, received_message) {
       if (greeting && greeting.confidence > 0.8) {
         console.log('852');
          var initializePromise = getUserInfo();
+         console.log('854');
+         console.log(initializePromise);
          initializePromise.then(function(result) {
           userDetails = result;
           console.log("AAasdasdoasiudaosAAAAAAAAAAInitialized user details");
