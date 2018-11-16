@@ -866,13 +866,13 @@ function handleMessage(sender_psid, received_message) {
       response = {'text':userDetails};
       //callSendAPI(sender_psid,response);
       }, function(err) {
-      var trueval = err.message;
+      var trueval = err;
       console.log('856');
       console.log(err);
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (trueval){
+      if (false){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -889,20 +889,16 @@ function handleMessage(sender_psid, received_message) {
              response = {'text':err};
              callSendAPI(sender_psid,response);
           })
-  
-          } else if(datetime && datetime.confidence > 0.8) { 
-            console.log('datetime');
+
+          } else if(datetime && datetime.confidence > 0.8) {
             response = handleDatetime(sender_psid,datetime,messageText);
-            callSendAPI(sender_psid,'test123');
-  
+
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
-            callSendAPI(sender_psid,response);
-          
+
         }else{
-          
+
           response = { "text": 'I didnt quite get that, what would you like to do today ' };
-          callSendAPI(sender_psid,response);
         }
       }else{
         //userinconvo
@@ -912,39 +908,16 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
-              console.log(err)
-              initializeSomeShit.then(function(result) {
-                  response = {'text':userDetails};
-              }, function(err) {
-                  response = {'text':err};
-                  var psids = ["2170306669668559","1964122107006784"]
+              var psids = ["2170306669668559","1964122107006784"];
 
-                  var initializePromise = getUserInfo(sender_psid);
-                  console.log(initializePromise);
-                  initializePromise.then(function(result) {
-                      // Use user details from here
-                      response = {'text':userDetails};
-                      //callSendAPI(sender_psid,response);
-                  }, function(err) {
-                      response = {'text':err};
-                      console.log(err)
-
-                      if(messageText.length > 0 ){
-                          var firstname = err["first_name"]
-                          var customString = "[ " + firstname + " ] says: " + messageText
-                          messageText = "";
-                          psids.forEach(id => {
-                              //postRequest(id, customString)
-                          });
-                      }
-                  });
-
+              psids.forEach(id => {
+                  postRequest(id, "Sup ya smelly bois");
               });
           });
       }
     })
     let nconv = 0 ;
-    
+
   }else{
     //adi help to reroute
     var location = locs[0];
@@ -952,7 +925,7 @@ function handleMessage(sender_psid, received_message) {
   }
 
 
-  //callSendAPI(sender_psid, response); 
+  //callSendAPI(sender_psid, response);
 }
 
 function handleGreeting(sender_psid,result) {
@@ -979,7 +952,7 @@ function handleGreeting(sender_psid,result) {
   }
 
 function sendMessage(sender_psid,message){
-  const querystring = require('querystring'); 
+  const querystring = require('querystring');
   var postData = JSON.stringify({
     "userId" : sender_psid,
     "message":message
@@ -1022,9 +995,8 @@ function sendMessage(sender_psid,message){
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
+  let info = getUserInfo(sender_psid);
   var i;
-  ouri = 'hacking';
-  console.log('we are in handle');
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
@@ -1032,10 +1004,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  console.log(datetime.values[0].value);
-  var day = atetime.values[0].value;
-  console.log(day.getDay());
-  var response = {'text':'Great you are interested in  on  I will let you know when an event becomes available.'};
+  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
   return response;
 }
 
