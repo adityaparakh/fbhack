@@ -891,6 +891,42 @@ function handleGreeting(sender_psid,result) {
   //use the greeting you get to decide what type of greeting you will give
     return {'text':'Great to see you '+result+'. If you are ready just send me your avalability and I will see what I can get you scheduled with'};
   }
+function sendMessage(sender_psid,message){
+  const querystring = require('querystring'); 
+  var postData = querystring.stringify({
+    'userId' : sender_psid,
+    "message":message
+  });
+
+  var options = {
+    hostname: 'https://fbhack-backend.herokuapp.com',
+    port: 443,
+    path: '/sendMessage',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': postData.length
+      }
+  };
+
+  var req = https.request(options, (res) => {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
+
+    res.on('data', (d) => {
+      process.stdout.write(d);
+    });
+  });
+
+  req.on('error', (e) => {
+    console.error(e);
+  });
+
+  req.write(postData);
+  req.end();
+}
+
+
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
@@ -912,6 +948,7 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 function getUserInfo(sender_psid){
     let request = require('request');
