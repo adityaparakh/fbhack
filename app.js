@@ -865,7 +865,7 @@ function handleDatetime(sender_psid,datetime) {
   return 'Great to see you '+info.first_name+'. If you are ready just send me your avialability and I will see what I can get you scheduled with';
 }
 function getUserInfo(sender_psid){
-  https.get('https://graph.facebook.com/'+sender_psid, function(req, res) {
+  /*https.get('https://graph.facebook.com/'+sender_psid, function(req, res) {
     // A chunk of data has been recieved.
     console.log(res);
     console.log(req);
@@ -877,8 +877,8 @@ function getUserInfo(sender_psid){
     res.on('end', () => {
       return data;
     });
-  });
-  return data;
+  });*/
+  return 'mete';
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
