@@ -935,7 +935,7 @@ function handleMessage(sender_psid, received_message) {
                       var customString = "[ " + firstname + " ] says: " + messageText
 
                           psids.forEach(id => {
-                              postRequest(id, customString)
+                              //postRequest(id, customString)
                           })
                   })
 
