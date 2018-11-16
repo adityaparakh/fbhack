@@ -866,7 +866,8 @@ function handleMessage(sender_psid, received_message) {
       response = {'text':userDetails};
       //callSendAPI(sender_psid,response);
       }, function(err) {
-      var trueval = err;
+      var trueval = JSON.parse(err);
+      console.log(trueval);
       console.log('856');
       console.log(trueval);
       //console.log(err);
