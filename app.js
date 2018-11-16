@@ -869,10 +869,11 @@ function handleMessage(sender_psid, received_message) {
       var trueval = err;
       console.log('856');
       console.log(err);
+
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (true){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -887,14 +888,14 @@ function handleMessage(sender_psid, received_message) {
             //callSendAPI(sender_psid,response);
             }, function(err) {
              console.log("printing err.....");
-             console.log(err);
-               console.log(JSON.parse(err));
-               var replyText = "Howdy, Mete!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
+             console.log(err["first_name"]);
+             var name = err["first_name"];
+               var replyText = "Howdy, "+name+"!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
 
-               if(sender_psid == "2170306669668559"){
-                   var replyText = "Hey, Hamza!. Welcome toConnectify. Lets get your activities started, when are you available?";
+               //if(sender_psid == "2170306669668559"){
+               //    var replyText = "Hey, Hamza!. Welcome toConnectify. Lets get your activities started, when are you available?";
 
-               }
+               //}
 
                var response = {'text':replyText};
              callSendAPI(sender_psid,response);
