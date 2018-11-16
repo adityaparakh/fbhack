@@ -819,7 +819,9 @@ function sendAccountLinking(recipientId) {
  * get the message id in a response
  *
  */
-
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+}
 
  // Handles messages events
 function handleMessage(sender_psid, received_message) {
@@ -830,28 +832,21 @@ function handleMessage(sender_psid, received_message) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    switch (messageText) {
-      case 'image':
-        response = {
-          "text": `no images dude`
-        }
-        break;
+    const greeting = firstEntity(message.nlp, 'greetings');
+    const datetime = firstEntity(message.nlp, 'datetime');
+    const thanks = firstEntity(message.nlp, 'thanks');
+    if (greeting && greeting.confidence > 0.8) {
+      response = { "text": 'Hi How are you ' };
+    } else if(datetime && datetime.confidence > 0.8) { 
+      // default logic
+      response = { "text": 'Sure what would you like to do on "${datetime.value}".' };
 
-      case 'gif':
-        response = {
-          "text": `do you eREALLY WANT GIFS`
-        }
-        break;
-
-      default:
-        // Create the payload for a basic text message
-        response = {
-          "text": `You sent the message: "${received_message.text}". Now send me an image!`
-        }
-
-    }
-    // Create the payload for a basic text message
-    
+    } else if(thanks && thanks.confidence > 0.8){
+      response = { "text": 'You are welcome' };
+      
+    }else{
+      response = { "text": 'I didnt quite get that, what would you like to do today ' };
+    }   
   }  
   
   // Sends the response message
