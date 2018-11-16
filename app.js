@@ -867,6 +867,8 @@ function handleDatetime(sender_psid,datetime) {
 function getUserInfo(sender_psid){
   https.get('https://graph.facebook.com/'+sender_psid, function(req, res) {
     // A chunk of data has been recieved.
+    console.log(res);
+    console.log(req);
     res.on('data', (chunk) => {
       data += chunk;
     });
