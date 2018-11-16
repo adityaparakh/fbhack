@@ -866,13 +866,13 @@ function handleMessage(sender_psid, received_message) {
       response = {'text':userDetails};
       //callSendAPI(sender_psid,response);
       }, function(err) {
-      var trueval = err;
+      var trueval = err.message;
       console.log('856');
       console.log(err);
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (trueval){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -891,14 +891,18 @@ function handleMessage(sender_psid, received_message) {
           })
   
           } else if(datetime && datetime.confidence > 0.8) { 
+            console.log('datetime');
             response = handleDatetime(sender_psid,datetime,messageText);
+            callSendAPI(sender_psid,'test123');
   
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
+            callSendAPI(sender_psid,response);
           
         }else{
           
           response = { "text": 'I didnt quite get that, what would you like to do today ' };
+          callSendAPI(sender_psid,response);
         }
       }else{
         //userinconvo
@@ -1018,8 +1022,9 @@ function sendMessage(sender_psid,message){
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
-  let info = getUserInfo(sender_psid);
   var i;
+  ouri = 'hacking';
+  console.log('we are in handle');
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
@@ -1027,7 +1032,8 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
+  console.log(datetime.values[0].value.toDay());
+  var response = {'text':'Great you are interested in '+ouri +' on '+'. I will let you know when an event becomes available.'};
   return response;
 }
 
