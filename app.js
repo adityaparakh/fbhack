@@ -891,14 +891,43 @@ function handleMessage(sender_psid, received_message) {
           })
 
           } else if(datetime && datetime.confidence > 0.8) {
-            response = handleDatetime(sender_psid,datetime,messageText);
+            //response = handleDatetime(sender_psid,datetime,messageText);
+            var i;
+            for (i=0;i<=interests.length;i++)
+            {
+              if (messageText.includes(interests[i])){
+                var ouri = interests[i];
+                break;
+              }
+            }
+            console.log(datetime.values[0].value);
+            var day = datetime.values[0].value;
+            console.log(ouri);
+            console.log(day.getDay());
+            var weekday = new Array(7);
+            weekday[0] =  "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+
+            var n = weekday[day.getDay()];
+            console.log(n);
+            var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
+            callSendAPI(sender_psid,response);
+
+            
 
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
+            callSendAPI(sender_psid,response);
 
         }else{
 
           response = { "text": 'I didnt quite get that, what would you like to do today ' };
+          callSendAPI(sender_psid,response);
         }
       }else{
         //userinconvo
@@ -996,7 +1025,6 @@ function sendMessage(sender_psid,message){
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
-  let info = getUserInfo(sender_psid);
   var i;
   for (i=0;i<=interests.length;i++)
   {
@@ -1009,6 +1037,17 @@ function handleDatetime(sender_psid,datetime,messageText) {
   var day = datetime.values[0].value;
   console.log(ouri);
   console.log(day.getDay());
+  var weekday = new Array(7);
+  weekday[0] =  "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
+
+  var n = weekday[day.getDay()];
+  console.log(n);
   var response = {'text':'Great you are interested in  on  I will let you know when an event becomes available.'};
   return response;
 }
