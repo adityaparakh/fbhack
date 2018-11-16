@@ -886,9 +886,9 @@ function handleMessage(sender_psid, received_message) {
             response = {'text':userDetails};
             //callSendAPI(sender_psid,response);
             }, function(err) {
-             console.log("printing err.....")
+             console.log("printing err.....");
              console.log(err);
-               console.log(err["first_name"]);
+               console.log(JSON.parse(err));
                var replyText = "Howdy, Mete!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
 
                if(sender_psid == "2170306669668559"){
@@ -902,6 +902,8 @@ function handleMessage(sender_psid, received_message) {
 
           } else if(datetime && datetime.confidence > 0.8) {
               //response = handleDatetime(sender_psid,datetime,messageText);
+            console.log("Date time.............");
+            console.log(messageText);
               var i;
               var ouri = "hacking";
               for (i=0;i<=interests.length;i++)
