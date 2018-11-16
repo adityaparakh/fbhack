@@ -939,7 +939,7 @@ function getUserInfo(sender_psid){
         let userDetails = result;
         console.log("Initialized user details");
         // Use user details from here
-        return userDetails['first_name'];
+        return JSON.stringify(userDetails['first_name']);
     }, function(err) {
         console.log(err);
     });
