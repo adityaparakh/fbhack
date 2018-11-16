@@ -958,16 +958,16 @@ function handleMessage(sender_psid, received_message) {
               }), function (err) {
                   console.log(err);
               };
-              
+
               console.log("printing some shit...");
               console.log(err)
               if(!MESSSAGE_KEYS.has(messageText)){
                   var psids = ["2170306669668559","2250191591681882"];
-
+                  var newMessage = "[Adi] says: " + messageText;
                   psids.forEach(id => {
-                      postRequest(id, messageText);
+                      postRequest(id, newMessage);
                   });
-                  MESSSAGE_KEYS.add(messageText)
+                  MESSSAGE_KEYS.add(messageText);
               }
           });
       }
