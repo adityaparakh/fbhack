@@ -865,21 +865,33 @@ function handleMessage(sender_psid, received_message) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    const greeting = firstEntity(received_message.nlp, 'greetings');
-    const datetime = firstEntity(received_message.nlp, 'datetime');
-    const thanks = firstEntity(received_message.nlp, 'thanks');
-    if (greeting && greeting.confidence > 0.8) {
-      response = handleGreeting(sender_psid,greeting);
-    } else if(datetime && datetime.confidence > 0.8) { 
-      response = handleDatetime(sender_psid,datetime);
+    let userinconvo = 0 ;
+    if (!userinconvo){
+      const greeting = firstEntity(received_message.nlp, 'greetings');
+      const datetime = firstEntity(received_message.nlp, 'datetime');
+      const thanks = firstEntity(received_message.nlp, 'thanks');
+      if (greeting && greeting.confidence > 0.8) {
+        response = handleGreeting(sender_psid,greeting);
+      } else if(datetime && datetime.confidence > 0.8) { 
+        response = handleDatetime(sender_psid,datetime);
 
-    } else if(thanks && thanks.confidence > 0.8){
-      response = { "text": 'You are welcome' };
-      
+      } else if(thanks && thanks.confidence > 0.8){
+        response = { "text": 'You are welcome' };
+        
+      }else{
+        response = { "text": 'I didnt quite get that, what would you like to do today ' };
+      }
     }else{
-      response = { "text": 'I didnt quite get that, what would you like to do today ' };
-    }   
-  }  
+      //adi help to reroute
+    }
+
+  }
+  else{
+    response ={'text':'Cool spot I will note that down. Thank you for updating your location'};
+    console.log('poo');
+    console.log(received_message);
+    //adi update location here
+  }     
   
   // Sends the response message
   callSendAPI(sender_psid, response); 
@@ -895,7 +907,31 @@ function handleDatetime(sender_psid,datetime) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
   //get facebook name frequency and location and interests
-  return {'text': 'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
+  var response = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Would you like this to be a weekly event or an impromptu one?",
+          "subtitle": "Tap a button to answer.",
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Weekly",
+              "payload": "weekly",
+            },
+            {
+              "type": "postback",
+              "title": "impromptu",
+              "payload": "impromptu",
+            }
+          ],
+        }]
+      }
+    }
+  }
+  return response;
 }
 function getUserInfo(sender_psid){
     var initializePromise = initialize();
@@ -910,7 +946,21 @@ function getUserInfo(sender_psid){
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
+  let response;
+  
+  // Get the payload for the postback
+  let payload = received_postback.payload;
 
+  // Set the response based on the postback payload
+  if (payload === 'weekly') {
+    response = { "text": "Great I will let you know when your activiy is ready every weej" }
+    //adi help create weekly
+  } else if (payload === 'impromptu') {
+    response = { "text": "Perfect, I will look up events you can do once and let you know soon" }
+    //adihelp create impromptu
+  }
+  // Send the message to acknowledge the postback
+  callSendAPI(sender_psid, response);
 }
 
 
