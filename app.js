@@ -950,16 +950,7 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
-
-
-              var initializeSomeOthershit = getUserInfo(sender_psid);
-              initializeSomeOthershit.then(function (result) {
-                  console.log(result);
-                  print("what is happening")
-              }), function (err) {
                   console.log(err);
-
-
                   console.log("printing some shit...");
                   console.log(err);
                   console.log(messageText);
@@ -977,9 +968,6 @@ function handleMessage(sender_psid, received_message) {
                       MESSSAGE_KEYS.add(newMessage);
                       MESSSAGE_KEYS.add(messageText);
                   }
-              };
-
-
           });
       }
     })
