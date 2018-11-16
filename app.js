@@ -839,7 +839,7 @@ function handleMessage(sender_psid, received_message) {
       response = { "text": 'Hi How are you ' };
     } else if(datetime && datetime.confidence > 0.8) { 
       // default logic
-      response = { "text": 'Sure what would you like to do on "${datetime.value}".' };
+      response = { "text": 'Sure what would you like to do on '+datetime.value+'.' };
 
     } else if(thanks && thanks.confidence > 0.8){
       response = { "text": 'You are welcome' };
