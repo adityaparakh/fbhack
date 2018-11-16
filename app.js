@@ -865,19 +865,13 @@ function handleDatetime(sender_psid,datetime) {
   return {'text': 'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
 }
 function getUserInfo(sender_psid){
-  /*https.get('https://graph.facebook.com/'+sender_psid, function(req, res) {
-    // A chunk of data has been recieved.
-    console.log(res);
-    console.log(req);
-    res.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    // The whole response has been received. Print out the result.
-    res.on('end', () => {
-      return data;
-    });
-  });*/
+    const request = require('request');
+    request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
+        if (err) {
+          return console.log(err); }
+    console.log(body.url);
+    console.log(body.explanation);
+});
   return 'mete';
 }
 // Handles messaging_postbacks events
