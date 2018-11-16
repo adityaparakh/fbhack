@@ -951,7 +951,6 @@ function sendMessage(sender_psid,message){
 
 function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
-  let info = getUserInfo(sender_psid);
   var i;
   ouri = 'hacking';
   for (i=0;i<=interests.length;i++)
