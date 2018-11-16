@@ -854,13 +854,13 @@ function handleMessage(sender_psid, received_message) {
 
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
-  info = getUserInfo(sender_psid);
+  let info = getUserInfo(sender_psid);
   return 'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with';
 }
 
 function handleDatetime(sender_psid,datetime) {
   //use the greeting you get to decide what type of greeting you will give back
-  info = getUserInfo(sender_psid);
+  let info = getUserInfo(sender_psid);
   //get facebook name frequency and location and interests
   return 'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with';
 }
