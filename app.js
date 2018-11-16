@@ -854,6 +854,7 @@ function handleMessage(sender_psid, received_message) {
          console.log('854');
          console.log(initializePromise);
          initializePromise.then(function(result) {
+           console.log('857');
           userDetails = result;
           console.log("AAasdasdoasiudaosAAAAAAAAAAInitialized user details");
           // Use user details from here
