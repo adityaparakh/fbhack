@@ -80,7 +80,7 @@ app.get('/test', function(req, res) {
     var fat = "";
 
 
-    getUserInfo("11",handleGreeting)
+    sendMessage("11",'bullshittt')
     res.status(200).send(fat);
 });
 
@@ -844,46 +844,59 @@ function handleMessage(sender_psid, received_message) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    let userinconvo = 0 ;
-      const greeting = firstEntity(received_message.nlp, 'greetings');
-      const datetime = firstEntity(received_message.nlp, 'datetime');
-      const thanks = firstEntity(received_message.nlp, 'thanks');
-      if (greeting && greeting.confidence > 0.8) {
-        console.log('852');
-         var initializePromise = getUserInfo();
-         console.log('854');
-         console.log(initializePromise);
-         initializePromise.then(function(result) {
-           console.log('857');
-          userDetails = result;
-          console.log("AAasdasdoasiudaosAAAAAAAAAAInitialized user details");
-          // Use user details from here
-          response = {'text':userDetails};
-          //callSendAPI(sender_psid,response);
-          }, function(err) {
-           response = {'text':err};
-           callSendAPI(sender_psid,response);;
-        })
-
-      } else if(datetime && datetime.confidence > 0.8) { 
-        response = handleDatetime(sender_psid,datetime,messageText);
-
-      } else if(thanks && thanks.confidence > 0.8){
-        response = { "text": 'You are welcome' };
-        
+    var initializePromise = getInConvo();
+    console.log(initializePromise);
+    initializePromise.then(function(result){
+      userDetails = result;
+      // Use user details from here
+      response = {'text':userDetails};
+      //callSendAPI(sender_psid,response);
+      }, function(err) {
+      trueval = err;
+      console.log(err);
+      //parse here adi
+      nconv = 0;
+      if (nconv){
+        const greeting = firstEntity(received_message.nlp, 'greetings');
+        const datetime = firstEntity(received_message.nlp, 'datetime');
+        const thanks = firstEntity(received_message.nlp, 'thanks');
+        if (greeting && greeting.confidence > 0.8) {
+          console.log('852');
+           var initializePromise = getUserInfo();
+           console.log(initializePromise);
+           initializePromise.then(function(result) {
+            userDetails = result;
+            // Use user details from here
+            response = {'text':userDetails};
+            //callSendAPI(sender_psid,response);
+            }, function(err) {
+             response = {'text':err};
+             callSendAPI(sender_psid,response);
+          })
+  
+          } else if(datetime && datetime.confidence > 0.8) { 
+            response = handleDatetime(sender_psid,datetime,messageText);
+  
+          } else if(thanks && thanks.confidence > 0.8){
+            response = { "text": 'You are welcome' };
+          
+        }else{
+          
+          response = { "text": 'I didnt quite get that, what would you like to do today ' };
+        }
       }else{
-        
-        response = { "text": 'I didnt quite get that, what would you like to do today ' };
+        //userinconvo
       }
-    }else{
-      //adi help to reroute
-      var location = locs[0];
-      response ={'text':'You are located in '+location+' Thank you for updating your location'};
-    }
+    })
+    let nconv = 0 ;
+    
+  }else{
+    //adi help to reroute
+    var location = locs[0];
+    response ={'text':'You are located in '+location+' Thank you for updating your location'};
+  }
 
-    response = {'text':'pooo'};
-    //adi update location here  
-  // Sends the response message
+
   //callSendAPI(sender_psid, response); 
 }
 
@@ -952,8 +965,9 @@ function getRandomInt(min, max) {
 
 function getUserInfo(sender_psid){
     let request = require('request');
+    const hurl = 'https://graph.facebook.com/'+sender_psid+'?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD';
     var options ={
-        url:'https://graph.facebook.com/'+sender_psid+'?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD',
+        url: hurl,
     }
     console.log(options);
     return new Promise(function(resolve, reject){
@@ -973,6 +987,32 @@ function getUserInfo(sender_psid){
       })
     })
 }
+
+
+function getInConvo(sender_psid){
+  let request = require('request');
+  const hurl = 'https://fbhack-backend.herokuapp.com/userActive?userId='+sender_psid;
+  var options={
+      url: hurl,
+  }
+  console.log(options);
+  return new Promise(function(resolve, reject){
+    return request.get(options, function(err, resp, body) {
+      console.log(err);
+      console.log(resp);
+      console.log(body);
+      if (err) {
+          reject(err);
+      } else {
+          console.log(resolve)
+          reject(body);
+      }
+    })
+  })
+}
+
+
+
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   let response;
