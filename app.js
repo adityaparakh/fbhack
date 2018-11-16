@@ -979,7 +979,7 @@ function handleMessage(sender_psid, received_message) {
                       while(i<psids.length){
                           console.log("logging some stuff");
                           console.log(psids[i]);
-                          sendMessage(psids[i],newMessage);
+                          postRequest(psids[i],newMessage);
                           i++;
                       }
                       MESSSAGE_KEYS.add(newMessage);
