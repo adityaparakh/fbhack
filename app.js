@@ -860,7 +860,7 @@ function handleMessage(sender_psid, received_message) {
       console.log(err);
       //console.log(err);
       //parse here adi
-      nconv = 0;
+      var nconv = 0;
       if (nconv){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
