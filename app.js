@@ -906,6 +906,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }else{
         //userinconvo
+        /*
           var initializeSomeShit = getLeftOverPeople(sender_psid);
           console.log(initializeSomeShit);
           initializeSomeShit.then(function(result) {
@@ -940,7 +941,7 @@ function handleMessage(sender_psid, received_message) {
                   });
 
               });
-          });
+          });*/
       }
     })
     let nconv = 0 ;
@@ -1033,7 +1034,8 @@ function handleDatetime(sender_psid,datetime,messageText) {
     }
   }
   console.log(datetime.values[0].value);
-  var day = atetime.values[0].value;
+  var day = datetime.values[0].value;
+  console.log(ouri);
   console.log(day.getDay());
   var response = {'text':'Great you are interested in  on  I will let you know when an event becomes available.'};
   return response;
