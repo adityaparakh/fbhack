@@ -76,6 +76,39 @@ app.get('/webhook', function(req, res) {
 });
 
 
+function initialize() {
+    // Setting URL and headers for request
+
+    var request = require("request");
+    var options = {
+        url: 'https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD'
+    };
+    // Return new promise
+    return new Promise(function(resolve, reject) {
+        // Do async job
+        request.get(options, function(err, resp, body) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(JSON.parse(body));
+            }
+        })
+    })
+
+}
+
+
+app.get('/test', function(req, res) {
+    let request = require('request');
+    var fat = "";
+
+
+
+    res.status(200).send(fat);
+});
+
+
+
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
  * webhook. Be sure to subscribe your app to your page to receive callbacks
@@ -869,6 +902,9 @@ function handleMessage(sender_psid, received_message) {
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
+  console.log(" FUCK ");
+  console.log(info);
+  console.log(typeof info);
   return {'text':'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
 }
 
@@ -903,14 +939,16 @@ function handleDatetime(sender_psid,datetime) {
   return response;
 }
 function getUserInfo(sender_psid){
-    let request = require('request');
+    var initializePromise = initialize();
+    return initializePromise.then(function(result) {
+        let userDetails = JSON.stringify(result);
+        console.log("Initialized user details");
+        // Use user details from here
 
-    return request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
-        if (err) {
-          return console.log(err); }
-          console.log(body['first_name'])
-   return JSON.stringify(body['first_name']);
-});
+        return JSON.stringify(userDetails['first_name']);
+    }, function(err) {
+        console.log(err);
+    });
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
