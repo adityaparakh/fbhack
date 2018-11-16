@@ -79,6 +79,8 @@ app.get('/test', function(req, res) {
     let request = require('request');
     var fat = "";
 
+
+    getUserInfo("11",handleGreeting)
     res.status(200).send(fat);
 });
 
@@ -931,7 +933,7 @@ function getUserInfo(sender_psid, callback){
         if (err) {
             return console.log(err); }
         console.log(body['first_name']);
-        callback(JSON.stringify(body.first_name))
+        callback("11",JSON.stringify(body.first_name))
     });
 }
 // Handles messaging_postbacks events
