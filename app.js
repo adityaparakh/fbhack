@@ -900,6 +900,9 @@ function handleMessage(sender_psid, received_message) {
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
+  console.log(" FUCK ");
+  console.log(info);
+  console.log(typeof info);
   return {'text':'Great to see you '+info+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
 }
 
@@ -936,9 +939,10 @@ function handleDatetime(sender_psid,datetime) {
 function getUserInfo(sender_psid){
     var initializePromise = initialize();
     return initializePromise.then(function(result) {
-        let userDetails = result;
+        let userDetails = JSON.stringify(result);
         console.log("Initialized user details");
         // Use user details from here
+
         return JSON.stringify(userDetails['first_name']);
     }, function(err) {
         console.log(err);
