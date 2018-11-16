@@ -858,7 +858,7 @@ function handleMessage(sender_psid, received_message) {
           response = {'text':userDetails};
           callSendAPI(sender_psid,response);
           }, function(err) {
-          console.log(err);
+          console.log('861 error');
         })
 
       } else if(datetime && datetime.confidence > 0.8) { 
@@ -880,7 +880,7 @@ function handleMessage(sender_psid, received_message) {
     response = {'text':'pooo'};
     //adi update location here  
   // Sends the response message
-  callSendAPI(sender_psid, response); 
+  //callSendAPI(sender_psid, response); 
 }
 
 function handleGreeting(sender_psid,result) {
