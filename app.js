@@ -881,7 +881,7 @@ function handleMessage(sender_psid, received_message) {
   
           } else if(datetime && datetime.confidence > 0.8) { 
             response = handleDatetime(sender_psid,datetime,messageText);
-            callSendAPI(sender_psid,response);
+            callSendAPI(sender_psid,'test123');
   
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
@@ -890,6 +890,7 @@ function handleMessage(sender_psid, received_message) {
         }else{
           
           response = { "text": 'I didnt quite get that, what would you like to do today ' };
+          callSendAPI(sender_psid,response);
         }
       }else{
         //userinconvo
