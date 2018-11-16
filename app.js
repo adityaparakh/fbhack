@@ -967,16 +967,23 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
-
-              var initializeSomeOtherShit = getUserInfo(sender_psid);
-              initializeSomeOtherShit.then(function (result) {
-                  console.log(result)
-              }), function (err) {
                   console.log(err);
                   console.log("printing some shit...");
                   console.log(err);
                   console.log(messageText);
-                  var newMessage = "[Adi] says: " + messageText;
+
+                  var userName = "";
+
+                  if(sender_psid == "2170306669668559"){
+                    userName = "Hamza";
+                  }
+                  if(sender_psid == "1964122107006784"){
+                    userName = "Mete";
+                  }
+                  if(sender_psid == "2250191591681882"){
+                    userName = "Adi";
+                  }
+                  var newMessage = "[" + userName + "] says: " + messageText;
                   if(!MESSSAGE_KEYS.has(messageText) && !MESSSAGE_KEYS.has(newMessage)){
                       var psids = ["2170306669668559","1964122107006784"];
                       var i = 0;
@@ -990,8 +997,6 @@ function handleMessage(sender_psid, received_message) {
                       MESSSAGE_KEYS.add(newMessage);
                       MESSSAGE_KEYS.add(messageText);
                   }
-              };
-
           });
       }
     })
