@@ -824,7 +824,7 @@ function sendAccountLinking(recipientId) {
  // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
-  var messageText =eceived_message.text;
+  var messageText =received_message.text;
   // Check if the message contains text
   if (messageText) {    
     // If we receive a text message, check to see if it matches any special

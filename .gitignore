@@ -7,3 +7,4 @@ node_modules
 *.dat
 Procfile
 .DS_Store
+.idea
