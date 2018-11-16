@@ -79,6 +79,8 @@ app.get('/test', function(req, res) {
     let request = require('request');
     var fat = "";
 
+
+    getUserInfo("11",handleGreeting)
     res.status(200).send(fat);
 });
 
@@ -112,7 +114,7 @@ app.post('/webhook', function (req, res) {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        getUserInfo("11",handleGreeting);
+          handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -847,7 +849,7 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
-        response = handleGreeting(sender_psid,greeting);
+        response = getUserInfo("11",handleGreeting);
       } else if(datetime && datetime.confidence > 0.8) { 
         response = handleDatetime(sender_psid,datetime,messageText);
 
@@ -873,7 +875,7 @@ function handleMessage(sender_psid, received_message) {
 }
 
 function handleGreeting(sender_psid,result) {
-  //use the greeting you get to decide what type of greeting you will give back
+  //use the greeting you get to decide what type of greeting you will give
     return {'text':'Great to see you '+result+'. If you are ready just send me your avalability and I will see what I can get you scheduled with'};
   }
 
@@ -928,8 +930,7 @@ function getUserInfo(sender_psid, callback){
     return request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
         if (err) {
             return console.log(err); }
-        console.log(body['first_name']);
-        callback(JSON.stringify(body.first_name))
+        return callback("11",JSON.stringify(body.first_name))
     });
 }
 // Handles messaging_postbacks events
