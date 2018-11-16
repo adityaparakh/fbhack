@@ -927,6 +927,7 @@ function getUserInfo(sender_psid){
         } else {
             console.log('926');
             resolve(body);
+            console.log('930');
         }
       })
     })
