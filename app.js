@@ -843,7 +843,6 @@ function handleMessage(sender_psid, received_message) {
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
     let userinconvo = 0 ;
-    if (!userinconvo){
       const greeting = firstEntity(received_message.nlp, 'greetings');
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -861,12 +860,11 @@ function handleMessage(sender_psid, received_message) {
       }
     }else{
       //adi help to reroute
+      var location = locs[0];
+      response ={'text':'You are located in '+location+' Thank you for updating your location'};
     }
 
-  }
-  else{
-    var location = locs[0];
-    response ={'text':'You are located in '+location+' Thank you for updating your location'};
+    
     //adi update location here
   }     
   
