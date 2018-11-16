@@ -1035,8 +1035,10 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  console.log(datetime.values[0].value.toDay());
-  var response = {'text':'Great you are interested in '+ouri +' on '+'. I will let you know when an event becomes available.'};
+  console.log(datetime.values[0].value);
+  var day = atetime.values[0].value;
+  console.log(day.getDay());
+  var response = {'text':'Great you are interested in  on  I will let you know when an event becomes available.'};
   return response;
 }
 
