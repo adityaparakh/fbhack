@@ -941,8 +941,10 @@ function handleMessage(sender_psid, received_message) {
               } 
 
 
-              var response = {"text":"Got it "+ouri+" on "+day+". I'll crunch some algorithms and hit you back when I find a good match!"};
+              var response = {"text":"Got it. "+ouri+" on "+day+". I'll crunch some algorithms and hit you back when I find a good match!"};
               console.log(response);
+
+              addUser(sender_psid);
               callSendAPI(sender_psid,response);
 
           } else if(thanks && thanks.confidence > 0.8){
