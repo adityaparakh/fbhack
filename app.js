@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (true){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -1017,7 +1017,20 @@ function handleGreeting(sender_psid,result) {
     return {'text':'Great to see you '+result+'. If you are ready just send me your avalability and I will see what I can get you scheduled with'};
   }
 
+function addUser(sender_psid){
+    var request = require('request');
 
+    console.log(sender_psid)
+    request.post(
+        'https://fbhack-backend.herokuapp.com/addUser',
+        { json: { "userId" : sender_psid } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body)
+            }
+        }
+    );
+}
 
 
   function postRequest(sender_psid,message){
