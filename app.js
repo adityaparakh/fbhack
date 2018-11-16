@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (true){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -891,32 +891,32 @@ function handleMessage(sender_psid, received_message) {
           })
 
           } else if(datetime && datetime.confidence > 0.8) {
-            //response = handleDatetime(sender_psid,datetime,messageText);
-            var i;
-            for (i=0;i<=interests.length;i++)
-            {
-              if (messageText.includes(interests[i])){
-                var ouri = interests[i];
-                break;
+              //response = handleDatetime(sender_psid,datetime,messageText);
+              var i;
+              for (i=0;i<=interests.length;i++)
+              {
+                if (messageText.includes(interests[i])){
+                  var ouri = interests[i];
+                  break;
+                }
               }
-            }
-            console.log(datetime.values[0].value);
-            var day = datetime.values[0].value;
-            console.log(ouri);
-            console.log(day.getDay());
-            var weekday = new Array(7);
-            weekday[0] =  "Sunday";
-            weekday[1] = "Monday";
-            weekday[2] = "Tuesday";
-            weekday[3] = "Wednesday";
-            weekday[4] = "Thursday";
-            weekday[5] = "Friday";
-            weekday[6] = "Saturday";
+              console.log(datetime.values[0].value);
+              var day = datetime.values[0].value;
+              console.log(ouri);
+              console.log(day.getDay());
+              var weekday = new Array(7);
+              weekday[0] =  "Sunday";
+              weekday[1] = "Monday";
+              weekday[2] = "Tuesday";
+              weekday[3] = "Wednesday";
+              weekday[4] = "Thursday";
+              weekday[5] = "Friday";
+              weekday[6] = "Saturday";
 
-            var n = weekday[day.getDay()];
-            console.log(n);
-            var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
-            callSendAPI(sender_psid,response);
+              var n = weekday[day.getDay()];
+              console.log(n);
+              var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
+              callSendAPI(sender_psid,response);
 
             
 
