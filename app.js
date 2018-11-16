@@ -855,13 +855,13 @@ function handleMessage(sender_psid, received_message) {
       response = {'text':userDetails};
       //callSendAPI(sender_psid,response);
       }, function(err) {
-      var trueval = err;
+      var trueval = err.message;
       console.log('856');
       console.log(err);
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (true){
+      if (!trueval){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
