@@ -844,7 +844,7 @@ function handleMessage(sender_psid, received_message) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    var initializePromise = getInConvo();
+    var initializePromise = getInConvo(sender_psid);
     console.log(initializePromise);
     initializePromise.then(function(result){
       userDetails = result;
