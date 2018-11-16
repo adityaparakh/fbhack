@@ -837,7 +837,7 @@ function firstEntity(nlp, name) {
 
  // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  let response;
+  var response;
   var messageText =received_message.text;
   // Check if the message contains text
   if (messageText) {    
@@ -850,12 +850,12 @@ function handleMessage(sender_psid, received_message) {
     console.log('beg2');
     initializePromise.then(function(result){
       console.log('beg3');
-      userDetails = result;
+      var userDetails = result;
       // Use user details from here
       response = {'text':userDetails};
       //callSendAPI(sender_psid,response);
       }, function(err) {
-      trueval = err;
+      var trueval = err;
       console.log('856');
       //console.log(err);
       //parse here adi
