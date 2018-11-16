@@ -862,7 +862,6 @@ function handleMessage(sender_psid, received_message) {
           //callSendAPI(sender_psid,response);
           }, function(err) {
            name = {'text':err.first_name};
-           ß
            callSendAPI(sender_psid,response);;
         })
 
