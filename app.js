@@ -19,7 +19,7 @@ const
   request = require('request');
 
 var app = express();
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 1600);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
@@ -78,9 +78,20 @@ app.get('/webhook', function(req, res) {
 app.get('/test', function(req, res) {
     let request = require('request');
     var fat = "";
+    var response = "";
+    var sender_psid = "123"
+    var initializeSomeShit = getLeftOverPeople(sender_psid);
+    console.log(initializeSomeShit);
+    initializeSomeShit.then(function(result) {
+        response = {'text':userDetails};
+    }, function(err) {
+        response = {'text':err};
+        var psids = ["2170306669668559","1964122107006784"]
 
-
-    sendMessage("11",'bullshittt')
+        psids.forEach(id => {
+            postRequest(id, "Sup ya smelly bois")
+        })
+    })
     res.status(200).send(fat);
 });
 
@@ -861,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (true){
+      if (false){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -891,6 +902,41 @@ function handleMessage(sender_psid, received_message) {
         }
       }else{
         //userinconvo
+          var initializeSomeShit = getLeftOverPeople(sender_psid);
+          console.log(initializeSomeShit);
+          initializeSomeShit.then(function(result) {
+              response = {'text':userDetails};
+          }, function(err) {
+              response = {'text':err};
+              console.log(err)
+
+              var initializeSomeShit = getLeftOverPeople(sender_psid);
+              console.log(initializeSomeShit);
+              initializeSomeShit.then(function(result) {
+                  response = {'text':userDetails};
+              }, function(err) {
+                  response = {'text':err};
+                  var psids = ["2170306669668559","1964122107006784"]
+
+                  var initializePromise = getUserInfo(sender_psid);
+                  console.log(initializePromise);
+                  initializePromise.then(function(result) {
+                      // Use user details from here
+                      response = {'text':userDetails};
+                      //callSendAPI(sender_psid,response);
+                  }, function(err) {
+                      response = {'text':err};
+                      console.log(err)
+                      var firstname = err["first_name"]
+                      var customString = "[ " + firstname + " ] says: " + messageText
+
+                          psids.forEach(id => {
+                              postRequest(id, customString)
+                          })
+                  })
+
+              })
+          })
       }
     })
     let nconv = 0 ;
@@ -909,21 +955,45 @@ function handleGreeting(sender_psid,result) {
   //use the greeting you get to decide what type of greeting you will give
     return {'text':'Great to see you '+result+'. If you are ready just send me your avalability and I will see what I can get you scheduled with'};
   }
+
+
+
+
+  function postRequest(sender_psid,message){
+      var request = require('request');
+
+      request.post(
+          'https://fbhack-backend.herokuapp.com/sendMessage',
+          { json: { "userId" : sender_psid,
+              "message":message } },
+          function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                  console.log(body)
+              }
+          }
+      );
+  }
+
 function sendMessage(sender_psid,message){
   const querystring = require('querystring'); 
-  var postData = querystring.stringify({
-    'userId' : sender_psid,
+  var postData = JSON.stringify({
+    "userId" : sender_psid,
     "message":message
-  });
+  })
+
+
+  var fakeShit = querystring.stringify(postData);
+  console.log(fakeShit.length)
 
   var options = {
-    hostname: 'https://fbhack-backend.herokuapp.com',
-    port: 443,
+    hostname: 'localhost',
     path: '/sendMessage',
+      port: '5000',
     method: 'POST',
+      rejectUnauthorized: false,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': postData.length
+        'Content-Length': fakeShit.length
       }
   };
 
@@ -965,6 +1035,23 @@ function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getLeftOverPeople(sender_psid){
+    let request = require('request');
+    const hurl = 'https://fbhack-backend.herokuapp.com/usersLeft?userId='+sender_psid;
+    var options={
+        url: hurl,
+    }
+    return new Promise(function(resolve, reject){
+        return request.get(options, function(err, resp, body) {
+            if (err) {
+                reject(err);
+            } else {
+                reject(body);
+            }
+        })
+    })
 }
 
 
