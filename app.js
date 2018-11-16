@@ -861,8 +861,8 @@ function handleMessage(sender_psid, received_message) {
           response = {'text':userDetails};
           //callSendAPI(sender_psid,response);
           }, function(err) {
-           name = {'text':err.first_name};
-           callSendAPI(sender_psid,name);
+           response = {'text':err};
+           callSendAPI(sender_psid,response);;
         })
 
       } else if(datetime && datetime.confidence > 0.8) { 
