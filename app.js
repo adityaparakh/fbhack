@@ -897,7 +897,7 @@ function handleMessage(sender_psid, received_message) {
               for (i=0;i<=interests.length;i++)
               {
                 if (messageText.includes(interests[i])){
-                  var ouri = interests[i];
+                   ouri = interests[i];
                   break;
                 }
               }
