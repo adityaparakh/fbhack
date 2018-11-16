@@ -913,7 +913,7 @@ function handleMessage(sender_psid, received_message) {
                   var psids = ["2170306669668559","1964122107006784"];
 
                   psids.forEach(id => {
-                      postRequest(id, messageText);
+                      //postRequest(id, messageText);
                   });
                   messageText = "";
               }
