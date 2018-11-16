@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (true){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -881,14 +881,14 @@ function handleMessage(sender_psid, received_message) {
            var initializePromise = getUserInfo(sender_psid);
            console.log(initializePromise);
            initializePromise.then(function(result) {
-            var userDetails = result;
+            userDetails = result;
             // Use user details from here
             response = {'text':userDetails};
             //callSendAPI(sender_psid,response);
             }, function(err) {
-             var response = {'text':err.first_name};
+            response = {'text':err.first_name};
              callSendAPI(sender_psid,response);
-          });
+          })
 
           } else if(datetime && datetime.confidence > 0.8) {
               //response = handleDatetime(sender_psid,datetime,messageText);
@@ -939,19 +939,13 @@ function handleMessage(sender_psid, received_message) {
           }, function(err) {
               response = {'text':err};
               if(messageText.length > 0 ){
-                  var psids = ["2170306669668559","1964122107006784"];
+                  var psids = ["2170306669668559"];
 
-                  psids.forEach(id => {
-                      postRequest(id, messageText);
+                  /*psids.forEach(id => {
+                      //postRequest(id, messageText);
                   });
-                  messageText = "";
-                  function stateChange(newState) {
-                      setTimeout(function () {
-                          if (newState == -1) {
-                              alert('VIDEO HAS STOPPED');
-                          }
-                      }, 5000);
-                  }
+                  messageText = "";*/
+                  postRequest(psids, messageText);
               }
 
           });
