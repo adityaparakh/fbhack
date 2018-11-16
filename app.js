@@ -966,7 +966,9 @@ function handleMessage(sender_psid, received_message) {
                   var newMessage = "[Adi] says: " + messageText;
                   var i = 0;
                   while(i<psids.length){
-                    sendMessage(psids[i],messageText);
+                    console.log("logging some stuff");
+                    console.log(psids[i]);
+                    sendMessage(psids[i],newMessage);
                     i++;
                   }
                   MESSSAGE_KEYS.add(newMessage);
