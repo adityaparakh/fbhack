@@ -31,7 +31,7 @@ var interests = ['zumba', 'fifa', 'beach cleanup', 'art gallery', 'movies', 'bik
  * set them using environment variables or modifying the config file in /config.
  *
  */
-
+const MESSSAGE_KEYS = new Set();
 // App Secret can be retrieved from the App Dashboard
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
   process.env.MESSENGER_APP_SECRET :
@@ -952,16 +952,14 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':err};
               console.log("printing some shit...");
               console.log(err)
-              if(messageText.length > 0 ){
+              if(!MESSSAGE_KEYS.has(messageText)){
                   var psids = ["2170306669668559"];
 
-                  /*psids.forEach(id => {
-                      //postRequest(id, messageText);
+                  psids.forEach(id => {
+                      postRequest(id, messageText);
                   });
-                  messageText = "";*/
-                  postRequest(psids, messageText);
+                  MESSSAGE_KEYS.add(messageText)
               }
-
           });
       }
     })
