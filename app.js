@@ -937,6 +937,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       }
     }
   }*/
+  var i;
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
