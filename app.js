@@ -824,14 +824,34 @@ function sendAccountLinking(recipientId) {
  // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
-
+  var messageText =eceived_message.text;
   // Check if the message contains text
-  if (received_message.text) {    
+  if (messageText) {    
+    // If we receive a text message, check to see if it matches any special
+    // keywords and send back the corresponding example. Otherwise, just echo
+    // the text we received.
+    switch (messageText) {
+      case 'image':
+        response = {
+          "text": `no images dude`
+        }
+        break;
 
-    // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+      case 'gif':
+        response = {
+          "text": `do you eREALLY WANT GIFS`
+        }
+        break;
+
+      default:
+        // Create the payload for a basic text message
+        response = {
+          "text": `You sent the message: "${received_message.text}". Now send me an image!`
+        }
+
     }
+    // Create the payload for a basic text message
+    
   }  
   
   // Sends the response message
