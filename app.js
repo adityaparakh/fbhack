@@ -931,12 +931,15 @@ function handleMessage(sender_psid, received_message) {
                   }, function(err) {
                       response = {'text':err};
                       console.log(err)
-                      var firstname = err["first_name"]
-                      var customString = "[ " + firstname + " ] says: " + messageText
 
+                      if(messageText.length > 0 ){
+                          var firstname = err["first_name"]
+                          var customString = "[ " + firstname + " ] says: " + messageText
+                          messageText = "";
                           psids.forEach(id => {
                               //postRequest(id, customString)
                           })
+                      }
                   })
 
               })
