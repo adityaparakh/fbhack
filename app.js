@@ -886,7 +886,7 @@ function handleMessage(sender_psid, received_message) {
             response = {'text':userDetails};
             //callSendAPI(sender_psid,response);
             }, function(err) {
-             response = {'text':err};
+             response = {'text':err.first_name};
              callSendAPI(sender_psid,response);
           })
 
@@ -897,7 +897,7 @@ function handleMessage(sender_psid, received_message) {
               for (i=0;i<=interests.length;i++)
               {
                 if (messageText.includes(interests[i])){
-                  var ouri = interests[i];
+                   ouri = interests[i];
                   break;
                 }
               }
