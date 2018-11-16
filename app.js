@@ -893,6 +893,7 @@ function handleMessage(sender_psid, received_message) {
           } else if(datetime && datetime.confidence > 0.8) {
               //response = handleDatetime(sender_psid,datetime,messageText);
               var i;
+              var ouri = "hacking";
               for (i=0;i<=interests.length;i++)
               {
                 if (messageText.includes(interests[i])){
@@ -918,8 +919,6 @@ function handleMessage(sender_psid, received_message) {
               //var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
               var response = {"text":'pppp'};
               callSendAPI(sender_psid,response);
-
-            
 
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
