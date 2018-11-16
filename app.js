@@ -917,7 +917,7 @@ function getUserInfo(sender_psid){
         url:'https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD',
     }
     return new Promise(function(resolve, reject){
-      request.get(options, function(err, resp, body) {
+      return request.get(options, function(err, resp, body) {
         console.log(err);
         console.log(resp);
         console.log(body);
