@@ -114,7 +114,7 @@ app.post('/webhook', function (req, res) {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        getUserInfo("11",handleGreeting);
+          handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -850,7 +850,7 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
-        response = handleGreeting(sender_psid,greeting);
+        response = getUserInfo("11",handleGreeting);
       } else if(datetime && datetime.confidence > 0.8) { 
         response = handleDatetime(sender_psid,datetime,messageText);
 
