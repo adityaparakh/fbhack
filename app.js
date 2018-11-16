@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (true){
+      if (false){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -950,6 +950,8 @@ function handleMessage(sender_psid, received_message) {
               response = {'text':userDetails};
           }, function(err) {
               response = {'text':err};
+              console.log("printing some shit...");
+              console.log(err)
               if(messageText.length > 0 ){
                   var psids = ["2170306669668559"];
 
