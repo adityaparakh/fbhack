@@ -974,7 +974,6 @@ function handleMessage(sender_psid, received_message) {
                   console.log(result);
               }, function (err) {
                   console.log(err);
-                  console.log(err["first_name"]);
                   console.log("printing some shit...");
                   console.log(err);
                   console.log(messageText);
