@@ -962,7 +962,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  console.log(datetime.values[0].value).toDay();
+  console.log(datetime.values[0].value.toDay());
   var response = {'text':'Great you are interested in '+ouri +' on '+'. I will let you know when an event becomes available.'};
   return response;
 }
