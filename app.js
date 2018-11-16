@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (true){
+      if (false){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -881,14 +881,14 @@ function handleMessage(sender_psid, received_message) {
            var initializePromise = getUserInfo(sender_psid);
            console.log(initializePromise);
            initializePromise.then(function(result) {
-            userDetails = result;
+            var userDetails = result;
             // Use user details from here
             response = {'text':userDetails};
             //callSendAPI(sender_psid,response);
             }, function(err) {
              var response = {'text':err.first_name};
              callSendAPI(sender_psid,response);
-          })
+          });
 
           } else if(datetime && datetime.confidence > 0.8) {
               //response = handleDatetime(sender_psid,datetime,messageText);
@@ -942,7 +942,7 @@ function handleMessage(sender_psid, received_message) {
                   var psids = ["2170306669668559","1964122107006784"];
 
                   psids.forEach(id => {
-                      //postRequest(id, messageText);
+                      postRequest(id, messageText);
                   });
                   messageText = "";
               }
