@@ -849,7 +849,17 @@ function handleMessage(sender_psid, received_message) {
       const datetime = firstEntity(received_message.nlp, 'datetime');
       const thanks = firstEntity(received_message.nlp, 'thanks');
       if (greeting && greeting.confidence > 0.8) {
-         callSendAPI( sender_psid,getUserInfo(sender_psid,handleGreeting));
+         var initializePromise = getUserInfo();
+         initializePromise.then(function(result) {
+          userDetails = result;
+          console.log("Initialized user details");
+          // Use user details from here
+          response = {'text':userDetails};
+          callSendAPI(sender_psid,response);
+          }, function(err) {
+          console.log(err);
+        })
+
       } else if(datetime && datetime.confidence > 0.8) { 
         response = handleDatetime(sender_psid,datetime,messageText);
 
@@ -898,13 +908,20 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getUserInfo(sender_psid, callback){
+function getUserInfo(sender_psid){
     let request = require('request');
-    request('https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD', { json: true }, (err, res, body) => {
-      if (err) {
-          return console.log(err); }
-      callback(sender_psid,JSON.stringify(body.first_name))
-    });
+    var options ={
+        url:'https://graph.facebook.com/1964122107006784?fields=first_name,last_name,profile_pic&access_token=EAAIKXN8ZAjBsBANToUfJbTPviKjhaQhvCky9jyAOKZArf0V25ensSdZCleC2sIg1Qv2MCa6x9PDRzin1YQCr3X57nWrP494Lfea71sAqTP7b4gQ7SKmJZBeIZAWZAwz6ZBeQu3PrqLZAYn3CGwcqC4TeEMI2KsTgjaRMTuApITEYCAZDZD',
+    }
+    return new Promise(function(resolve, reject){
+      request.get(options, function(err, resp, body) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(JSON.parse(body));
+        }
+      })
+    })
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
