@@ -929,7 +929,7 @@ function handleMessage(sender_psid, received_message) {
               //var n = weekday[day.getDay()];
               //console.log(n);
               //var response = {'text':'Great you are interested in +'+ouri+ 'on '+n+' I will let you know when an event becomes available.'};
-              var response = {"text":"fuck me sideways"};
+              var response = {"text":"Got it! I'm saving your details. I'll crunch some algorithms and hit you back when I find a good match!"};
               callSendAPI(sender_psid,response);
 
           } else if(thanks && thanks.confidence > 0.8){
