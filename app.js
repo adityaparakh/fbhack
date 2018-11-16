@@ -881,9 +881,11 @@ function handleMessage(sender_psid, received_message) {
   
           } else if(datetime && datetime.confidence > 0.8) { 
             response = handleDatetime(sender_psid,datetime,messageText);
+            callSendAPI(sender_psid,response);
   
           } else if(thanks && thanks.confidence > 0.8){
             response = { "text": 'You are welcome' };
+            callSendAPI(sender_psid,response);
           
         }else{
           
@@ -950,6 +952,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
   var i;
+  ouri = 'hacking';
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
@@ -957,7 +960,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
       break;
     }
   }
-  var response = {'text':'Great you are interested in '+ouri +' on '+datetime+'. I will let you know when an event becomes available.'};
+  var response = {'text':'Great you are interested in '+ouri +' on '+convertToDateTime(datetime).getDay()+'. I will let you know when an event becomes available.'};
   return response;
 }
 
