@@ -861,7 +861,7 @@ function handleMessage(sender_psid, received_message) {
           response = {'text':userDetails};
           //callSendAPI(sender_psid,response);
           }, function(err) {
-          console.log('861 error');
+          console.log(err);
         })
 
       } else if(datetime && datetime.confidence > 0.8) { 
