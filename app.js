@@ -904,6 +904,7 @@ function handleMessage(sender_psid, received_message) {
 function handleGreeting(sender_psid,greeting) {
   //use the greeting you get to decide what type of greeting you will give back
     return getUserInfo("hi").then(result => {
+      console.log(result)
         return {'text':'Great to see you '+result+'. If you are ready just send me your avialability and I will see what I can get you scheduled with'};
     })
   }
