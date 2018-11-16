@@ -889,8 +889,14 @@ function handleMessage(sender_psid, received_message) {
              console.log("printing err.....")
              console.log(err);
                console.log(err["first_name"]);
-               var replyText = "Howdy, person. I am your {App Name}. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
-             var response = {'text':replyText};
+               var replyText = "Howdy, Mete!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
+
+               if(sender_psid == "2170306669668559"){
+                   var replyText = "Howdy, Hamza!. I am Connectify. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
+
+               }
+
+               var response = {'text':replyText};
              callSendAPI(sender_psid,response);
           });
 
