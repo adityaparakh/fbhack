@@ -871,7 +871,7 @@ function handleDatetime(sender_psid,datetime) {
   //use the greeting you get to decide what type of greeting you will give back
   let info = getUserInfo(sender_psid);
   //get facebook name frequency and location and interests
-  response = {
+  var response = {
     "attachment": {
       "type": "template",
       "payload": {
