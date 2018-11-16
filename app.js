@@ -955,6 +955,7 @@ function handleMessage(sender_psid, received_message) {
               var initializeSomeOthershit = getUserInfo(sender_psid);
               initializeSomeOthershit.then(function (result) {
                   console.log(result);
+                  print("what is happening")
               }), function (err) {
                   console.log(err);
 
