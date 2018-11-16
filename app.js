@@ -832,9 +832,9 @@ function handleMessage(sender_psid, received_message) {
     // If we receive a text message, check to see if it matches any special
     // keywords and send back the corresponding example. Otherwise, just echo
     // the text we received.
-    const greeting = firstEntity(message.nlp, 'greetings');
-    const datetime = firstEntity(message.nlp, 'datetime');
-    const thanks = firstEntity(message.nlp, 'thanks');
+    const greeting = firstEntity(received_message.nlp, 'greetings');
+    const datetime = firstEntity(received_message.nlp, 'datetime');
+    const thanks = firstEntity(received_message.nlp, 'thanks');
     if (greeting && greeting.confidence > 0.8) {
       response = { "text": 'Hi How are you ' };
     } else if(datetime && datetime.confidence > 0.8) { 
