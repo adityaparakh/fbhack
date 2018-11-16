@@ -1011,6 +1011,7 @@ function handleGreeting(sender_psid,result) {
   function postRequest(sender_psid,message){
       var request = require('request');
 
+      console.log(sender_psid)
       request.post(
           'https://fbhack-backend.herokuapp.com/sendMessage',
           { json: { "userId" : sender_psid,
