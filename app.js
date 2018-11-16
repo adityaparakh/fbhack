@@ -872,7 +872,7 @@ function handleMessage(sender_psid, received_message) {
       //console.log(err);
       //parse here adi
       var nconv = 0;
-      if (false){
+      if (true){
         const greeting = firstEntity(received_message.nlp, 'greetings');
         const datetime = firstEntity(received_message.nlp, 'datetime');
         const thanks = firstEntity(received_message.nlp, 'thanks');
@@ -891,7 +891,7 @@ function handleMessage(sender_psid, received_message) {
                var replyText = "Howdy, person. I am your {App Name}. I help create group activities for you so you can do the things that matter and leave the scheduling up to me!.  Let's get started by knowing your availabilities. When are you available?";
              var response = {'text':err.first_name};
              callSendAPI(sender_psid,response);
-          })
+          });
 
           } else if(datetime && datetime.confidence > 0.8) {
               //response = handleDatetime(sender_psid,datetime,messageText);
