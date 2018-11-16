@@ -881,6 +881,7 @@ function handleMessage(sender_psid, received_message) {
         response = { "text": 'You are welcome' };
         
       }else{
+        
         response = { "text": 'I didnt quite get that, what would you like to do today ' };
       }
     }else{
@@ -889,9 +890,8 @@ function handleMessage(sender_psid, received_message) {
 
   }
   else{
-    response ={'text':'Cool spot I will note that down. Thank you for updating your location'};
-    console.log('poo');
-    console.log(received_message);
+    var location = locs[getRandomInt(0,locs.length)];
+    response ={'text':'You are located in'+location+' Thank you for updating your location'};
     //adi update location here
   }     
   
@@ -938,6 +938,13 @@ function handleDatetime(sender_psid,datetime) {
   }
   return response;
 }
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function getUserInfo(sender_psid){
     var initializePromise = initialize();
     return initializePromise.then(function(result) {
