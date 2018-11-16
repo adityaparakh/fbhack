@@ -854,7 +854,7 @@ function handleMessage(sender_psid, received_message) {
 
   }
   else{
-    response ={'txt':'I think you sent a location'};
+    response ={'text':'I think you sent a location'};
   }     
   
   // Sends the response message
