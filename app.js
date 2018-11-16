@@ -918,7 +918,7 @@ function getUserInfo(sender_psid){
     var options ={
         url:'https://graph.facebook.com/'+String(sender_psid)+'?fields=first_name,last_name,profile_pic&access_token='+PAGE_ACCESS_TOKEN,
     }
-    console.log(url);
+    console.log(options);
     return new Promise(function(resolve, reject){
       return request.get(options, function(err, resp, body) {
         console.log(err);
