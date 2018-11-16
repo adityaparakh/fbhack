@@ -941,7 +941,7 @@ function handleDatetime(sender_psid,datetime,messageText) {
   for (i=0;i<=interests.length;i++)
   {
     if (messageText.includes(interests[i])){
-      var ouri = ineterests[i];
+      var ouri = interests[i];
       break;
     }
   }
